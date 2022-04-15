@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+# source env variables
+source /etc/cont-init.d/20-setenv
+
+exec php /flox/backend/artisan queue:work --tries=3

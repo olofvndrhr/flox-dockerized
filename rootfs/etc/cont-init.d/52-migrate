@@ -1,0 +1,15 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+# source env variables
+source /etc/cont-init.d/20-setenv
+
+
+if [[ "${flox_init,,}" == "true" ]]; then
+  # init db
+  php /flox/backend/artisan flox:db --no-interaction "${flox_username}" "${flox_password}" #>/dev/null
+else
+  # migrate db
+  php /flox/backend/artisan migrate #>/dev/null
+fi
+

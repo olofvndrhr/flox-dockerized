@@ -1,0 +1,22 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+# set all env variables for further use. if variable is unset, it will have the defaults on the right side after ":="
+
+# custom env vars
+: "${tmdb_api_key:=}"
+: "${flox_app_url:=http://localhost}"
+: "${flox_client_uri:=/}"
+: "${flox_init:=false}"
+: "${flox_username:=admin}"
+: "${flox_password:=admin}"
+: "${flox_timezone:=UTC}"
+: "${flox_daily_reminder_time:=10:00}"
+: "${flox_weekly_reminder_time:=20:00}"
+: "${flox_mail_driver:=}"
+: "${flox_mail_host:=}"
+: "${flox_mail_port:=}"
+: "${flox_mail_from:=}"
+: "${flox_mail_username:=}"
+: "${flox_mail_password:=}"
+: "${flox_mail_encryption:=}"

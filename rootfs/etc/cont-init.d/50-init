@@ -1,0 +1,20 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+# source env variables
+source /etc/cont-init.d/20-setenv
+
+
+# check if lock file is present
+if [[ ! -f /flox/.lock ]]; then
+  printf 'Copying files to bind mount path\n'
+  # move app to permanent path
+  rsync --archive --delete --backup --backup-dir=/tmp /app/flox/ /flox
+
+  # create lock file to prevent overwriting existing files
+  touch /flox/.lock
+  chmod 600 /flox/.lock
+else
+  printf 'Lock file present. Not copying files\n'
+fi
+

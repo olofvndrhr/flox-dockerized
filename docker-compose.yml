@@ -1,0 +1,27 @@
+version: "3"
+services:
+
+  flox:
+    image: olofvndrhr/flox-dockerized:latest
+    container_name: flox-watchlist
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 80:80
+    networks:
+      - appnet
+    volumes:
+      - ./data/:/flox/
+    environment:
+      - TZ=Europe/Zurich
+      - PUID=4444 # custom userid
+      - PGID=4444 # custom groupid
+      - tmdb_api_key= # (required) The TMDB API key to use
+      - flox_init=true # run db initialization at container startup
+
+networks:
+  appnet:
+    name: appnet
+    driver: bridge
+

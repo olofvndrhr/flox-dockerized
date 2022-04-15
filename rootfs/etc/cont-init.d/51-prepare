@@ -1,0 +1,23 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+# source env variables
+source /etc/cont-init.d/20-setenv
+
+# set db connection options
+sed -i \
+  -e 's,^TMDB_API_KEY=.*,TMDB_API_KEY='"${tmdb_api_key}"',g' \
+  -e 's,^APP_URL=.*,APP_URL='"${flox_app_url}"',g' \
+  -e 's,^CLIENT_URI=.*,CLIENT_URI='"${flox_client_uri}"',g' \
+  -e 's,^TIMEZONE=.*,TIMEZONE='"${flox_timezone}"',g' \
+  -e 's,^DAILY_REMINDER_TIME=.*,DAILY_REMINDER_TIME='"${flox_daily_reminder_time}"',g' \
+  -e 's,^WEEKLY_REMINDER_TIME=.*,WEEKLY_REMINDER_TIME='"${flox_weekly_reminder_time}"',g' \
+  -e 's,^MAIL_DRIVER=.*,MAIL_DRIVER='"${flox_mail_driver}"',g'  \
+  -e 's,^MAIL_HOST=.*,MAIL_HOST='"${flox_mail_host}"',g' \
+  -e 's,^MAIL_PORT=.*,MAIL_PORT='"${flox_mail_port}"',g' \
+  -e 's,^MAIL_FROM=.*,MAIL_FROM='"${flox_mail_from}"',g' \
+  -e 's,^MAIL_USERNAME=.*,MAIL_USERNAME='"${flox_mail_username}"',g' \
+  -e 's,^MAIL_PASSWORD=.*,MAIL_PASSWORD='"${flox_mail_password}"',g' \
+  -e 's,^MAIL_ENCRYPTION=.*,MAIL_ENCRYPTION='"${flox_mail_encryption}"',g' \
+        /flox/backend/.env
+

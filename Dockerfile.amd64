@@ -1,0 +1,73 @@
+FROM composer:1.10.17 AS composer
+
+# build flox
+RUN \
+  echo "**** building flox ****" && \
+  apk add git && \
+  git clone --branch master https://github.com/devfake/flox.git /build/flox && \
+  cd /build/flox/backend && \
+  composer install
+
+###########################################
+
+FROM cr.44net.ch/baseimages/debian-s6:1.3.1
+
+# set version label
+ARG BUILD_DATE
+ARG VERSION
+LABEL build_version="Version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+LABEL maintainer="Ivan Schaller"
+
+ARG db_path='/flox/backend/database/db.sqlite'
+
+COPY --from=composer /build/flox /app/flox
+
+# install packages
+RUN \
+  echo "**** installing base packages ****" && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends \
+      sqlite3 \
+      php7.4 \
+      php7.4-sqlite3 \
+      php-fpm \
+      php-xml \
+      php-mbstring \
+      php-bcmath \
+      php-opcache \
+      nginx \
+      && \
+  echo "**** prepare app ****" && \
+  touch "/app${db_path}" && \
+  cd /app/flox/backend && \
+  php artisan flox:init --no-interaction "${db_path}" && \
+  sed -i \
+      -e 's,DB_CONNECTION=.*,DB_CONNECTION=sqlite,g' \
+      -e 's,DB_DATABASE=.*,DB_DATABASE='"${db_path}"',g' \
+          /app/flox/backend/.env && \
+  echo "**** other preparation ****" && \
+  mkdir -p mkdir -p /run/php/ && \
+  touch /run/php/php7.4-fpm.sock && \
+  sed -i \
+      -e 's,user =.*,user = abc,g' \
+      -e 's,group =.*,group = abc,g' \
+      -e 's,listen.owner =.*,listen.owner = abc,g' \
+      -e 's,listen.group =.*,listen.group = abc,g' \
+          /etc/php/7.4/fpm/pool.d/www.conf && \
+  chown -R abc:abc /app/flox && \
+  echo "**** cleanup ****" && \
+  apt-get purge --auto-remove -y && \
+  apt-get clean && \
+  rm -rf \
+    /tmp/* \
+    /var/lib/apt/lists/* \
+    /var/tmp/*
+
+
+# copy files to container
+COPY rootfs /
+
+WORKDIR /flox
+
+EXPOSE 8080
+

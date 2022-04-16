@@ -21,3 +21,10 @@ sed -i \
   -e 's,^MAIL_ENCRYPTION=.*,MAIL_ENCRYPTION='"${flox_mail_encryption}"',g' \
         /flox/backend/.env
 
+
+# set flox to https mode
+if [[ "${flox_https,,}" == "true" ]]; then
+sed -i 's,#fastcgi_param HTTPS on;,fastcgi_param HTTPS on;,g' \
+        /etc/nginx/sites-enabled/default
+fi
+

@@ -7,9 +7,11 @@ source /etc/cont-init.d/20-setenv
 
 if [[ "${flox_init,,}" == "true" ]]; then
   # init db
-  php /flox/backend/artisan flox:db --no-interaction "${flox_username}" "${flox_password}" #>/dev/null
+  printf 'Initializing database\n'
+  php /flox/backend/artisan flox:db --no-interaction "${flox_username}" "${flox_password}" >/dev/null
 else
   # migrate db
-  php /flox/backend/artisan migrate #>/dev/null
+  printf 'Migrating database\n'
+  php /flox/backend/artisan migrate >/dev/null
 fi
 

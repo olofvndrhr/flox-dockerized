@@ -7,8 +7,8 @@ source /etc/cont-init.d/20-setenv
 
 # check if lock file is present
 if [[ ! -f /flox/.lock ]]; then
-  printf 'Copying files to bind mount path\n'
   # move app to permanent path
+  printf 'Copying files to bind mount path\n'
   rsync --archive --delete --backup --backup-dir=/tmp /app/flox/ /flox
 
   # create lock file to prevent overwriting existing files

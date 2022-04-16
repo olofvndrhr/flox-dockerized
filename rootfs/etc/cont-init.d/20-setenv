@@ -5,6 +5,7 @@
 
 # custom env vars
 : "${tmdb_api_key:=}"
+: "${flox_https:=false}"
 : "${flox_app_url:=http://localhost}"
 : "${flox_client_uri:=/}"
 : "${flox_init:=false}"

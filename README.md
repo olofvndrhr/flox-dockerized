@@ -29,7 +29,7 @@ To use the container you will need to set the env variable `tmdb_api_key` with y
 ```bash
 # with docker run
 cd <project_root>
-docker run -p '80:80' --volume '/<data-directory>/:/flox/' -e tmdb_api_key=<key> -e flox_db_init=true --name flox olofvndrhr:flox-dockerized:latest
+docker run -p '80:80' --volume '/<data-directory>/:/flox/' -e tmdb_api_key=<key> -e flox_db_init=true --name flox olofvndrhr/flox-dockerized:latest
 ```
 
 ```bash

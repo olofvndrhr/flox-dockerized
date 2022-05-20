@@ -1,6 +1,6 @@
 # flox-dockerized
 
-[![Build Status](https://drone.44net.ch/api/badges/olofvndrhr/flox-dockerized/status.svg)](https://drone.44net.ch/olofvndrhr/flox-dockerized)
+[![status-badge](https://ci.44net.ch/api/badges/olofvndrhr/flox-dockerized/status.svg)](https://ci.44net.ch/olofvndrhr/flox-dockerized)
 
 ### This is a docker container for the flox watchlist. Be sure to check out the original project: https://github.com/devfake/flox
 

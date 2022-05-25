@@ -18,11 +18,11 @@ pipeline:
     when:
       branch: master
       event: pull_request
-    image: olofvndrhr/flox-dockerized
+    image: woodpeckerci/plugin-docker-buildx
     pull: true
     settings:
       dry_run: true
-      repo: olofvndrhr/manga-dlp
+      repo: olofvndrhr/flox-dockerized
       platforms: linux/amd64
       dockerfile: Dockerfile.amd64
       auto_tag: true
@@ -33,11 +33,11 @@ pipeline:
     when:
       branch: master
       event: pull_request
-    image: olofvndrhr/flox-dockerized
+    image: woodpeckerci/plugin-docker-buildx
     pull: true
     settings:
       dry_run: true
-      repo: olofvndrhr/manga-dlp
+      repo: olofvndrhr/flox-dockerized
       platforms: linux/arm64
       dockerfile: Dockerfile.arm64
       auto_tag: true

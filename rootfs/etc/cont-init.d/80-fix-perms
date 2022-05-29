@@ -4,12 +4,13 @@
 # source env variables
 source /etc/cont-init.d/20-setenv
 
-app_path='/flox/'
+app_path='/flox'
 
 # fix permissions
-find "${app_path}" -type d -not -perm 775 -exec chmod 775 '{}' \+
-find "${app_path}" -type f -not -perm 664 -exec chmod 664 '{}' \+
+find "${app_path}/" -type d -not -perm 775 -exec chmod 775 '{}' \+
+find "${app_path}/" -type f -not -perm 664 -exec chmod 664 '{}' \+
 
-find "${app_path}" -not -user abc -exec chown abc '{}' \+
-find "${app_path}" -not -group abc -exec chown :abc '{}' \+
+find "${app_path}/" -not -user abc -exec chown abc '{}' \+
+find "${app_path}/" -not -group abc -exec chown :abc '{}' \+
 
+chmod +x "${app_path}/backend/artisan"

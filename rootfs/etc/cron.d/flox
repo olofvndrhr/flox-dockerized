@@ -1,1 +1,1 @@
-* * * * * php /flox/backend/artisan schedule:run >> /dev/null 2>&1
+* * * * * root s6-setuidgid abc /flox/backend/artisan schedule:run > /proc/1/fd/1 2>&1

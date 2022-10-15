@@ -35,28 +35,28 @@ docker run -p '80:80' --volume '/<data-directory>/:/flox/' -e tmdb_api_key=<key>
 ```bash
 # with docker-compose (be sure to check all environment variables and change when neccesary)
 cd <project_root>
-nano docker-compose.yml # set tmdb_api_key & flox_db_init
+nano docker-compose.yml # set tmdb_api_key & flox_init
 docker-compose pull
 docker-compose up -d
 ```
 
-In order to create an admin user you will need to run an initial migration. This can be done by running the container once with the environment variable `flox_db_init=true`.
+In order to create an admin user you will need to run an initialization. This can be done by running the container once with the environment variable `flox_init=true`.
 If the env variables `flox_username` and `flox_password` are not set, the default login is: `admin:admin`.
 
 You can then connect to [http://localhost](http://localhost) to access the application.
 If you mounted the data directory, all changes will be saved through container recreation.
 
 In the data directory is a file called `.lock`. This file controls whether or not to "reset" all application data. So don't remove the file unless you want to reset you installation.
-The removed data will still be available in the running container in the directory `/tmp/flox` until you remove the container. After a reset you need to start the container with `flox_db_init=true` again.
+The removed data will still be available in the running container in the directory `/tmp/flox` until you remove the container. After a reset you need to start the container with `flox_init=true` again.
 
 ---
 
 ## Supportet environment variables
 
 | Name                      |  Value  | Description                                                                                                                                    |
-| ------------------------- | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------------------------|:-------:|------------------------------------------------------------------------------------------------------------------------------------------------|
 | tmdb_api_key              |   str   | **(required)** The TMDB API key to use - required for startup _(https://developers.themoviedb.org/3/getting-started/introduction)_             |
-| flox_db_init              |  bool   | **(required)** Run db initialization at container startup _(default: false)_                                                                   |
+| flox_init                 |  bool   | **(required)** Run db initialization at container startup _(default: false)_                                                                   |
 | flox_https                |  bool   | If flox should use [https](https://github.com/devfake/flox/issues/148). Mostly used for reverse proxys with ssl termination _(default: false)_ |
 | flox_app_url              |   str   | The url you will be hosting the app on _(default: http://localhost)_                                                                           |
 | flox_username             |   str   | Inital username. Will not be overwritten after the initialization                                                                              |
